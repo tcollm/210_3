@@ -88,9 +88,17 @@ struct NODE *splitPath(char *pathName, char *baseName, char *dirName)
     else
     {
         // if dirName is not a directory then return ERROR
-        printf("ERROR: %s is not a valid directory path\n", dirName);
+        printf("ERROR: %s does not exist\n", dirName);
         return NULL;
     }
+
+    // set r to the root or cwd if there is no '/'
+    // while there are tokens (/'s)
+    // set r = r->child
+    // while r != NULL
+    // r = r->child
+    // r = r->sibling
+    // return r
 }
 
 void createNode(char *baseName, struct NODE *parentDir)
@@ -153,13 +161,10 @@ void mkdir(char pathName[])
     char *baseName = (char *)malloc(sizeof(char) * 256);
     char *dirName = (char *)malloc(sizeof(char) * 256);
 
-    // splitPath(pathName, baseName, dirName);
-    // struct NODE *dirNode = findNode(parentDir, dirName);
-
     struct NODE *dirNode = splitPath(pathName, baseName, dirName);
 
-    // check cwd for dirName
-    if (findNode(cwd, dirName) == NULL) // changed from find node in children function
+    // error need to fix find node so that c/d does not work when in root:
+    if (findNode(cwd, dirName) == NULL)
     {
         printf("ERROR: directory %s does not exist\n", dirName);
         return;
